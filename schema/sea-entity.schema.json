@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oes.seg.br/seadb/schema/sea-entity.schema.json",
+  "title": "SEA.db entity schemas",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^SEA-(P|E|C|TE|TV|TP|TS)-[0-9]{3}$"
+    },
+    "refList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "principle": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "cognitive_system": {
+          "type": "string"
+        },
+        "cognitive_note": {
+          "type": "string"
+        },
+        "mitre_attack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cross_references": {
+          "$ref": "#/$defs/refList"
+        },
+        "bowtie": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "emotion": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "cognitive_system": {
+          "type": "string"
+        },
+        "cognitive_note": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "themes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "effective_with": {
+          "type": "string"
+        },
+        "mitre_attack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cross_references": {
+          "$ref": "#/$defs/refList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "technique": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "vector",
+        "summary",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vector": {
+          "type": "string",
+          "enum": [
+            "EMAIL",
+            "VISHING",
+            "PHYSICAL",
+            "SOCIAL"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "detection": {
+          "type": "string"
+        },
+        "forensic": {
+          "type": "string"
+        },
+        "mitre_attack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "combinations": {
+          "$ref": "#/$defs/refList"
+        },
+        "cross_references": {
+          "$ref": "#/$defs/refList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "pretext_type": {
+          "type": "string"
+        },
+        "seasonal": {
+          "type": "boolean"
+        },
+        "temporal_window": {
+          "type": "string"
+        },
+        "cognitive_load": {
+          "type": "string"
+        },
+        "inputs_required": {
+          "type": "string"
+        },
+        "external_dependency": {
+          "type": "boolean"
+        },
+        "cross_references": {
+          "$ref": "#/$defs/refList"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

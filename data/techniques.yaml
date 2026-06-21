@@ -1,0 +1,1190 @@
+# SEA.db — Techniques (SEA-T)
+# 42 entries across four vectors: EMAIL, VISHING, PHYSICAL, SOCIAL.
+# IDs are permanent. See CONTRIBUTING.md.
+- id: SEA-TE-001
+  name: Typosquatting
+  vector: EMAIL
+  summary: Character-substituted domains designed to pass inspection at reading speed.
+  description: >-
+    Registration of a domain with subtle misspellings or character substitutions designed
+    to be visually similar to a legitimate domain and pass casual inspection at email reading
+    speed.
+  example: >-
+    Campaign used domain "compenyname.com" instead of "companyname.com" (replacing "a" with
+    "e") — visually indistinguishable without close inspection.
+  detection: >-
+    Hover over every link before clicking. Compare sender domain character by character against
+    the known official domain. Be suspicious of domains that sound right but are not recognized.
+  forensic: >-
+    Domain registration timestamp close to campaign date. WHOIS shows privacy-protected registration.
+    No historical presence in threat intel feeds.
+  mitre_attack:
+  - T1583.001
+  combinations:
+  - SEA-TE-010
+  - SEA-TE-008
+  cross_references:
+  - SEA-P-006
+  - SEA-P-012
+  - SEA-E-002
+- id: SEA-TE-002
+  name: Simple Brand Spoofing
+  vector: EMAIL
+  summary: >-
+    Copied logos and templates create false impression of official internal communication.
+  description: >-
+    Use of a legitimate organization's visual identity — logo, color palette, typography,
+    email template — to create a false impression of official communication without necessarily
+    cloning a real specific message.
+  example: >-
+    An email uses the exact visual identity of a company's internal HR or IT department, appearing
+    to be official internal communication while originating from an entirely external domain.
+  detection: >-
+    Always check the sender's actual email address, not the display name. A familiar-looking
+    email with a non-corporate domain is a strong indicator.
+  forensic: >-
+    External origin headers despite internal visual design. SPF/DKIM failures on the sending
+    domain. Domain registered without corporate history.
+  mitre_attack:
+  - T1566.001
+  - T1656
+  combinations:
+  - SEA-TE-004
+  - SEA-TE-007
+  cross_references:
+  - SEA-P-007
+  - SEA-P-012
+  - SEA-E-004
+  - SEA-E-005
+- id: SEA-TE-003
+  name: Dual Brand Spoofing
+  vector: EMAIL
+  summary: >-
+    Two real entities impersonated simultaneously — government plus organization — compound
+    authority.
+  description: >-
+    Simultaneous impersonation of two entities — typically a government body and the target's
+    organization — creating a compound authority that is harder to dismiss because both referenced
+    entities are real and the implied inter-institutional process is plausible.
+  example: >-
+    An email appears to come from the Government and references the target's employer by name,
+    claiming that a tax reform regulatory update requires action from that organization's
+    employees specifically.
+  detection: >-
+    Verify whether government bodies communicate directly with individual employees by email.
+    Check both sender domains independently. Legitimate government communications have official
+    domains.
+  forensic: >-
+    Domain mimicking government patterns. Multiple logos in a single email. Absence of digital
+    signature.
+  mitre_attack:
+  - T1566.001
+  - T1656
+  - T1598
+  combinations:
+  - SEA-TE-006
+  - SEA-TE-009
+  cross_references:
+  - SEA-P-007
+  - SEA-P-015
+  - SEA-E-004
+  - SEA-C-001
+- id: SEA-TE-004
+  name: Signature Cloning
+  vector: EMAIL
+  summary: >-
+    A real employee's full signature block replicated to authenticate a spoofed message.
+  description: >-
+    Exact replication of a real employee's email footer — name, title, contact information,
+    social media links, legal disclaimers — to confer authenticity and authority to a spoofed
+    email.
+  example: >-
+    A phishing email replicates the complete signature block of a known IT manager, including
+    phone extension, LinkedIn profile URL, and the organization's standard legal notice.
+  detection: >-
+    Verify the sender's email address independently of their displayed name and signature.
+    Call the person directly through a known number to confirm the communication.
+  forensic: >-
+    Sender domain mismatch with signatory's known email domain. Signature images served from
+    external CDN rather than company servers.
+  mitre_attack:
+  - T1566.001
+  - T1534
+  combinations:
+  - SEA-TE-002
+  - SEA-TE-013
+  cross_references:
+  - SEA-P-012
+  - SEA-P-015
+  - SEA-E-005
+- id: SEA-TE-005
+  name: Hyperlink Masking
+  vector: EMAIL
+  summary: >-
+    Visible link text differs from actual href destination — trust gap exploited in HTML.
+  description: >-
+    Display of a legitimate-looking URL as visible anchor text while the underlying href attribute
+    points to a different malicious domain — exploiting the visual trust gap between what
+    is shown and where the link actually goes.
+  example: >-
+    An email displays "https://portal.empresa.com.br" as visible text but the actual HTML
+    href destination is a credential collection page on an entirely unrelated domain.
+  detection: >-
+    Always hover over links before clicking to check the destination URL in the browser status
+    bar. Discrepancy between visible text and actual URL is a definitive indicator.
+  forensic: >-
+    HTML source shows href destination different from anchor text. Link destination domain
+    registered recently. Redirect chain through multiple domains.
+  mitre_attack:
+  - T1566.001
+  combinations:
+  - SEA-TE-001
+  - SEA-TE-008
+  cross_references:
+  - SEA-P-008
+  - SEA-P-012
+  - SEA-E-003
+- id: SEA-TE-006
+  name: Technical Jargon as Shield
+  vector: EMAIL
+  summary: >-
+    Regulatory jargon creates cognitive overload, making the target afraid to question the
+    request.
+  description: >-
+    Use of specialized, bureaucratic, or regulatory language — legal terms, technical acronyms,
+    official procedure names — to create cognitive overload and suppress critical evaluation
+    by making the target feel they lack the expertise to question the request.
+  example: >-
+    An email uses precise tax reform terminology, regulatory article references, and official
+    procedure codes to simulate a government communication — employees hesitate to question
+    it for fear of appearing ignorant.
+  detection: >-
+    Excessive jargon combined with urgency and a request for credentials is a red flag regardless
+    of how official the language sounds. Legitimate communications do not combine technical
+    complexity with urgent credential requests.
+  forensic: >-
+    Language register inconsistency — formal jargon mixed with generic template HTML structure.
+    Legal references that do not exist in official databases.
+  mitre_attack:
+  - T1566.001
+  - T1598
+  combinations:
+  - SEA-TE-003
+  - SEA-TE-007
+  cross_references:
+  - SEA-P-007
+  - SEA-P-011
+  - SEA-P-015
+  - SEA-E-004
+  - SEA-C-001
+- id: SEA-TE-007
+  name: Implicit / Explicit Deadline
+  vector: EMAIL
+  summary: >-
+    Artificial time boundary compresses decision window and prevents independent verification.
+  description: >-
+    Creation of a time boundary — stated explicitly ("expires in 24 hours") or implied through
+    subject line framing — that artificially compresses the target's decision window and prevents
+    deliberate verification.
+  example: >-
+    Subject line "Benefit expires today" creates urgency through implication without stating
+    a specific time — the compressed window prevents the target from verifying through official
+    channels.
+  detection: >-
+    Any communication combining a request for credentials or sensitive data with a deadline
+    should be verified through an independent channel before acting.
+  forensic: >-
+    Deadline language in subject line. Countdown timers or expiry language on landing page.
+    No corresponding entry in official systems for the supposed expiring item.
+  mitre_attack:
+  - T1566.001
+  combinations:
+  - SEA-TE-002
+  - SEA-TE-006
+  cross_references:
+  - SEA-P-001
+  - SEA-P-003
+  - SEA-E-001
+- id: SEA-TE-008
+  name: Conclusion Suppressor Screen
+  vector: EMAIL
+  summary: >-
+    Post-collection confirmation page resolves cognitive dissonance and suppresses the urge
+    to report.
+  description: >-
+    A post-action landing page that displays a positive, reassuring, or ambiguous message
+    after data collection — resolving the target's cognitive dissonance and suppressing the
+    impulse to report the interaction as suspicious.
+  example: >-
+    After submitting credentials on a fake page, targets received a generic "Success" message
+    — Enough to prevent the target from realizing they had been attacked.
+  detection: >-
+    An unexpected generic error or overly positive confirmation after submitting data — especially
+    if no actual system change follows — is worth reporting regardless of uncertainty.
+  forensic: >-
+    Absence of follow-through after supposed process completion. No email confirmation, no
+    system state change. Page served from non-corporate infrastructure.
+  mitre_attack:
+  - T1566.001
+  combinations:
+  - SEA-TE-001
+  - SEA-TE-009
+  cross_references:
+  - SEA-E-001
+  - SEA-E-002
+- id: SEA-TE-009
+  name: Expanded Collection Form
+  vector: EMAIL
+  summary: >-
+    Single form collects both PII and credentials simultaneously under a routine-looking flow.
+  description: >-
+    A credential collection page that requests both personal identifying information and corporate
+    credentials simultaneously, maximizing data exfiltration in a single interaction by normalizing
+    the combined request through form design.
+  example: >-
+    A form designed as a benefits registration page requests full name, CPF, employee ID,
+    and corporate password in a single multi-step flow that appears routine.
+  detection: >-
+    Legitimate corporate systems rarely combine personal PII and password entry in the same
+    form on a non-corporate domain. Any form requesting both is suspicious regardless of visual
+    design.
+  forensic: >-
+    Multi-field form with PII + credential fields hosted on non-corporate domain. Form submission
+    captured in attacker-controlled logs.
+  mitre_attack:
+  - T1598
+  - T1566.001
+  combinations:
+  - SEA-TE-003
+  - SEA-TE-008
+  cross_references:
+  - SEA-P-006
+  - SEA-P-007
+  - SEA-E-001
+- id: SEA-TE-010
+  name: Adversary-in-the-Middle (AiTM)
+  vector: EMAIL
+  summary: >-
+    Real-time proxy captures password and MFA token while mirroring the legitimate login page.
+  description: >-
+    The attacker acts as a real-time intermediary, mirroring the legitimate login page to
+    capture both the password and the MFA token simultaneously as the target attempts to authenticate.
+  example: >-
+    An attacker deploys a reverse proxy mirroring a corporate SSO login page, capturing session
+    tokens and MFA codes in real time — the target experiences a normal login and notices
+    nothing.
+  detection: >-
+    Verify the URL character by character before entering any credentials. Certificate mismatch
+    warnings should never be dismissed.
+  forensic: >-
+    Proxy server in login redirect chain. Session token captured and replayed from different
+    IP. MFA used despite no corresponding legitimate login attempt.
+  mitre_attack:
+  - T1557
+  - T1566.001
+  combinations:
+  - SEA-TE-001
+  - SEA-TE-005
+  cross_references:
+  - SEA-P-007
+  - SEA-P-012
+  - SEA-E-004
+- id: SEA-TE-011
+  name: Quishing (QR Code Phishing)
+  vector: EMAIL
+  summary: >-
+    QR codes route mobile devices outside the corporate security perimeter to collection pages.
+  description: >-
+    Use of malicious QR codes in emails or printed materials that, when scanned by a mobile
+    device, bypass corporate network protections and direct the device to a credential collection
+    page outside the security perimeter.
+  example: >-
+    An email instructs the target to scan a QR code to "verify their account on mobile" —
+    the mobile device bypasses the corporate email security gateway entirely.
+  detection: >-
+    Never scan QR codes from unsolicited emails. If a QR code is provided, verify through
+    official channels before scanning on any device.
+  forensic: >-
+    QR code destination URL registered recently. URL uses URL shortener or redirect chain.
+    Scan events correlated with credential collection attempts.
+  mitre_attack:
+  - T1566.001
+  - T1583.001
+  combinations:
+  - SEA-TE-002
+  - SEA-TE-009
+  cross_references:
+  - SEA-P-007
+  - SEA-P-001
+  - SEA-E-004
+- id: SEA-TE-012
+  name: SVG Smuggling
+  vector: EMAIL
+  summary: >-
+    SVG attachments carry executable JavaScript that bypasses file-type security filters.
+  description: >-
+    Exploitation of SVG image files containing embedded JavaScript to deliver malicious payloads
+    through email attachments, bypassing file-type-based security filters that do not inspect
+    XML-based image formats.
+  example: >-
+    An email attachment appears to be an SVG logo or diagram; when opened in a browser, embedded
+    JavaScript executes and downloads malware without triggering standard attachment download
+    alerts.
+  detection: >-
+    Never open SVG attachments from unsolicited emails. SVG files can contain executable code
+    despite appearing to be images.
+  forensic: >-
+    SVG file contains JavaScript. Browser executed script from within image attachment. Download
+    event triggered without explicit user file-download action.
+  mitre_attack:
+  - T1566.001
+  - T1027
+  combinations:
+  - SEA-TE-002
+  - SEA-TE-005
+  cross_references:
+  - SEA-P-008
+  - SEA-E-003
+- id: SEA-TE-013
+  name: Email Spoofing
+  vector: EMAIL
+  summary: >-
+    Email header From: field spoofed to show a trusted address from attacker infrastructure.
+  description: >-
+    Falsification of email header fields so the From: display shows a trusted address while
+    the actual sending infrastructure is attacker-controlled — distinct from domain spoofing
+    in that no new domain registration is required.
+  example: >-
+    An email appears in the target's inbox as originating from "ceo@company.com" while the
+    actual sending server has no relationship to the organization.
+  detection: >-
+    Check email headers directly. Display name spoofing is trivially easy — the actual sending
+    address is always visible in headers regardless of display.
+  forensic: >-
+    SPF/DKIM/DMARC failures in email headers. Sending server IP not in organization's authorized
+    sender records.
+  mitre_attack:
+  - T1566.002
+  - T1656
+  combinations:
+  - SEA-TE-002
+  - SEA-TE-004
+  cross_references:
+  - SEA-P-007
+  - SEA-P-012
+  - SEA-E-004
+- id: SEA-TE-014
+  name: Thread Hijacking
+  vector: EMAIL
+  summary: >-
+    Compromised account used to inject malicious content into a trusted ongoing conversation.
+  description: >-
+    The attacker gains access to a real email account and replies to an existing legitimate
+    conversation thread with a malicious attachment or link, exploiting the established trust
+    context of the prior exchange.
+  example: >-
+    An attacker who has compromised a vendor's email account replies to an ongoing procurement
+    thread with a malicious invoice attachment, leveraging weeks of legitimate prior conversation.
+  detection: >-
+    Even in a known thread, verify unexpected attachments through a secondary channel. Compromised
+    accounts are difficult to distinguish from legitimate ones by visual inspection.
+  forensic: >-
+    Reply originates from compromised account infrastructure. Attachment type inconsistent
+    with prior thread content. Email sent outside normal business hours.
+  mitre_attack:
+  - T1534
+  - T1566.001
+  combinations:
+  - SEA-TE-004
+  - SEA-TE-005
+  cross_references:
+  - SEA-P-012
+  - SEA-P-015
+  - SEA-E-005
+- id: SEA-TE-015
+  name: SEO Poisoning
+  vector: EMAIL
+  summary: >-
+    Phishing sites optimized to rank first in search results for brand-adjacent queries.
+  description: >-
+    Creation and optimization of phishing websites to rank at the top of search engine results
+    for specific terms, causing targets to organically navigate to attacker-controlled pages
+    through what appears to be a normal search.
+  example: >-
+    A fake "bank support" website is optimized to appear first in searching results for "Bank
+    X technical support" — targets find the attacker's site through what appears to be legitimate
+    organic search.
+  detection: >-
+    Always navigate to known official domains directly rather than searching for support pages.
+    Verify the domain matches the official organization before entering any data.
+  forensic: >-
+    Search engine cache shows recent high-ranking position for brand-adjacent terms. Domain
+    registered to optimize for specific search keywords.
+  mitre_attack:
+  - T1583.001
+  - T1598
+  combinations:
+  - SEA-TE-001
+  - SEA-TE-002
+  cross_references:
+  - SEA-P-012
+  - SEA-P-007
+  - SEA-E-004
+- id: SEA-TP-001
+  name: Courtesy Vulnerability
+  vector: PHYSICAL
+  summary: >-
+    Lost credential pretext exploits courtesy — the employee breaks protocol to be helpful.
+  description: >-
+    The attacker exploits an employee's empathy by claiming to have lost or forgotten their
+    access credential, inducing the target to break security protocol out of helpfulness rather
+    than malice.
+  example: >-
+    An attacker approaches a secured door prompting an employee to hold the door open to avoid
+    appearing unhelpful — the employee's courtesy overrides the security protocol.
+  detection: >-
+    Every person must badge through individually regardless of their explanation. Holding
+    doors for unknown individuals — however reasonable the reason — bypasses physical access
+    controls.
+  forensic: >-
+    Access log shows single badge event followed immediately by physical entry of two individuals.
+    Camera footage shows door held without second badge scan.
+  mitre_attack:
+  - T1078 (physical context)
+  combinations:
+  - SEA-TP-003
+  - SEA-TP-004
+  cross_references:
+  - SEA-P-009
+  - SEA-P-010
+  - SEA-E-006
+- id: SEA-TP-002
+  name: Authority / Service Impersonation
+  vector: PHYSICAL
+  summary: Uniform and props simulate professional authority that people rarely challenge.
+  description: >-
+    Use of uniforms, tools, printed credentials, or props to impersonate service technicians,
+    IT staff, delivery personnel, or inspectors — relying on low probability of people challenging
+    apparent professionals in their work context.
+  example: >-
+    An attacker wearing a vendor uniform and carrying a toolbox presents a printed work order
+    at reception, gaining access to the server room without a background check or system-registered
+    visit.
+  detection: >-
+    All vendor and contractor visits should be registered in advance. Verify the work order
+    exists in the ticketing system, not just on the paper the visitor presents.
+  forensic: >-
+    No corresponding work order in the ticket system. Vendor not registered in approved contractor
+    list. Badge photo inconsistency.
+  mitre_attack:
+  - T1656
+  combinations:
+  - SEA-TP-003
+  - SEA-TP-009
+  cross_references:
+  - SEA-P-007
+  - SEA-P-015
+  - SEA-E-004
+- id: SEA-TP-003
+  name: Tailgating
+  vector: PHYSICAL
+  summary: >-
+    Attacker slips through a secured door behind an authorized person without their knowledge.
+  description: >-
+    Following closely behind an authorized person through a secured access point without their
+    knowledge or consent, entering before the mechanism closes in the same motion as the legitimate
+    entry.
+  example: >-
+    An attacker times their approach to coincide with an employee's badge swipe and enters
+    the facility in the same motion before the door closes — the employee is unaware of the
+    follower.
+  detection: >-
+    Always allow access doors to fully close behind you before continuing. Awareness of individuals
+    in close proximity before badge-controlled entry is a simple countermeasure.
+  forensic: >-
+    Single badge scan event correlated with dual physical entry in camera footage. Door contact
+    sensor shows continuous open beyond single-person transit time.
+  mitre_attack:
+  - T1078 (physical context)
+  combinations:
+  - SEA-TP-001
+  - SEA-TP-005
+  cross_references:
+  - SEA-P-012
+  - SEA-E-005
+- id: SEA-TP-004
+  name: Piggybacking
+  vector: PHYSICAL
+  summary: >-
+    Social awkwardness is weaponized — the authorized person actively holds the door open.
+  description: >-
+    Convincing an authorized person to actively hold a door or grant access by presenting
+    a plausible reason — hands full, carrying equipment — so the authorized person consciously
+    enables entry.
+  example: >-
+    An attacker approaches a secured entrance carrying boxes and coffee cups, making it socially
+    awkward for the employee to let the door close — social courtesy overrides security protocol.
+  detection: >-
+    Every person must badge through individually regardless of how reasonable their situation
+    appears. Holding a door for someone — even when visually reasonable — bypasses all physical
+    access controls.
+  forensic: >-
+    Authorized badge holder's access log shows entry immediately followed by intruder activity
+    in secure area. Camera shows deliberate door hold.
+  mitre_attack:
+  - T1078 (physical context)
+  combinations:
+  - SEA-TP-001
+  - SEA-TP-002
+  cross_references:
+  - SEA-P-010
+  - SEA-P-009
+  - SEA-E-006
+- id: SEA-TP-005
+  name: Tactical Distraction
+  vector: PHYSICAL
+  summary: >-
+    A staged incident diverts security attention from a checkpoint during the access window.
+  description: >-
+    The attacker or an accomplice creates a deliberate interruption — dropped objects, staged
+    argument, medical event, delivery complication — to divert security or reception attention
+    from a checkpoint during access.
+  example: >-
+    An accomplice simulates a delivery dispute in the lobby while the attacker passes through
+    a turnstile unobserved during the distraction window.
+  detection: >-
+    Security personnel should maintain checkpoint coverage regardless of nearby incidents
+    — coverage is most critical during apparent distractions.
+  forensic: >-
+    Time correlation between distraction event and access log anomaly. Camera shows simultaneous
+    coverage gap and unauthorized entry.
+  mitre_attack:
+  - T1078 (physical context)
+  combinations:
+  - SEA-TP-003
+  - SEA-TP-002
+  cross_references:
+  - SEA-P-001
+  - SEA-E-001
+- id: SEA-TP-006
+  name: Shoulder Surfing
+  vector: PHYSICAL
+  summary: Credentials observed by watching a target enter them at a physical access point.
+  description: >-
+    Discrete observation of a target entering sensitive information — passwords on keypads,
+    PINs, mobile unlock patterns — from close physical proximity, typically disguised as normal
+    environmental presence.
+  example: >-
+    An attacker positions themselves near a keypad entry point and observes the employee's
+    finger movements as they enter the access code, later using it for unauthorized entry.
+  detection: >-
+    Shield keypads and screens when entering credentials in any public or semi-public area.
+    Awareness of individuals in close proximity during credential entry.
+  forensic: >-
+    Access log shows entry from known code at unusual time. Camera captures attacker in position
+    to observe credential entry.
+  mitre_attack:
+  - T1056 (Input Capture — physical analogue)
+  combinations:
+  - SEA-TP-007
+  - SEA-TP-009
+  cross_references:
+  - SEA-P-008
+  - SEA-E-003
+- id: SEA-TP-007
+  name: Visual Hacking
+  vector: PHYSICAL
+  summary: >-
+    Sensitive information collected from materials left physically visible inside the facility.
+  description: >-
+    Collection of sensitive information left physically visible — password notes, documents
+    on desks, unattended credentials, open screens — from within a facility or through windows
+    during a physical presence.
+  example: >-
+    An attacker walking through an open office reads a password on a sticky note attached
+    to a monitor and photographs a confidential document left face-up on a desk during a facility
+    tour.
+  detection: >-
+    Clean desk policy is an effective countermeasure. Screens should be locked when unattended.
+    Sensitive documents should not be left visible in shared spaces.
+  forensic: >-
+    Camera shows attacker photographing or reading visible credentials. Subsequent access
+    attempt correlated with credential visible at target location.
+  mitre_attack:
+  - T1589
+  combinations:
+  - SEA-TP-006
+  - SEA-TP-009
+  cross_references:
+  - SEA-P-013
+  - SEA-E-003
+- id: SEA-TP-008
+  name: Smoking Area Entry
+  vector: PHYSICAL
+  summary: >-
+    Break area infiltration enables re-entry with a returning employee group, bypassing badge
+    check.
+  description: >-
+    Infiltration of external communal areas — smoking zones, outdoor break areas — to interact
+    with employees during breaks, then re-entering the facility as part of the returning group
+    to bypass access controls.
+  example: >-
+    An attacker joins a group of employees during a smoking break, builds brief rapport over
+    shared topics, and returns through the access door with the group at the end of the break
+    — appearing to be a colleague from another floor.
+  detection: >-
+    Re-entry to the facility always requires individual badge authentication regardless of
+    prior external interaction. Communal areas should not be treated as pre-verified zones.
+  forensic: >-
+    No badge scan record for the intruder at re-entry. Camera correlates individual with known
+    employee group at break time but no credential at door.
+  mitre_attack:
+  - T1078 (physical context)
+  combinations:
+  - SEA-TP-003
+  - SEA-TP-001
+  cross_references:
+  - SEA-P-012
+  - SEA-P-013
+  - SEA-E-005
+- id: SEA-TP-009
+  name: Dumpster Diving
+  vector: PHYSICAL
+  summary: >-
+    Discarded documents retrieved from waste to build intelligence for future pretexts.
+  description: >-
+    Recovery of discarded organizational materials — documents, agendas, training manuals,
+    expired badges, printed emails — from waste to gather intelligence for constructing more
+    convincing pretexts.
+  example: >-
+    An attacker recovers a printed org chart, an expired visitor badge, and a vendor invoice
+    from a company dumpster, using these to construct a highly convincing impersonation for
+    a subsequent physical entry attempt.
+  detection: >-
+    Sensitive documents must be shredded, not discarded intact. Physical media must be degaussed
+    or physically destroyed. Expired credentials should be rendered visually invalid.
+  forensic: >-
+    Attacker found in possession of discarded internal documents. Content of discovered documents
+    matches attacker's demonstrated knowledge during incident.
+  mitre_attack:
+  - T1589
+  - T1592
+  combinations:
+  - SEA-TP-002
+  - SEA-TP-007
+  cross_references:
+  - SEA-P-015
+  - SEA-P-013
+  - SEA-E-003
+- id: SEA-TP-010
+  name: Physical Baiting (USB Drop)
+  vector: PHYSICAL
+  summary: >-
+    Labeled storage device left in a visible location exploits curiosity to deliver a payload.
+  description: >-
+    Leaving an attractive physical storage device in a strategic location within or near the
+    facility, relying on the target's curiosity or sense of duty to connect it to an internal
+    machine.
+  example: >-
+    A USB drive labeled "Q3 Salary Review — Confidential" is left in the parking lot; an employee
+    finds it and plugs it into a workstation to identify the owner, executing an embedded
+    payload.
+  detection: >-
+    Never connect unknown physical media to any corporate device. Found devices should be
+    reported to IT security without being connected to any system.
+  forensic: >-
+    USB device connection event in endpoint logs correlated with payload execution. Device
+    found near facility, not trackable to any registered employee.
+  mitre_attack:
+  - T1091
+  - T1566 (physical vector)
+  combinations:
+  - SEA-TP-007
+  - SEA-TP-006
+  cross_references:
+  - SEA-P-008
+  - SEA-E-003
+- id: SEA-TS-001
+  name: OSINT / Reconnaissance
+  vector: SOCIAL
+  summary: >-
+    Public information systematically harvested to map vulnerabilities before first contact.
+  description: >-
+    Systematic collection and analysis of publicly available information — social media posts,
+    geolocation tags, photos, professional profiles, connections — to map the target's routine,
+    preferences, and vulnerabilities before initiating contact.
+  example: >-
+    An attacker analyzes a target's LinkedIn profile, Instagram geotags, and public conference
+    presentations to identify their manager, current projects, and working hours before crafting
+    a targeted spearphishing message.
+  detection: >-
+    Limit public disclosure of organizational details, internal project names, and colleague
+    relationships on professional networks. Assume anything public will be used by an adversary.
+  forensic: >-
+    Attack demonstrates knowledge only obtainable from public profile analysis. Timing of
+    attack correlated with recently posted geolocation or schedule information.
+  mitre_attack:
+  - T1589
+  - T1593
+  combinations:
+  - SEA-TS-002
+  - SEA-TE-014
+  cross_references:
+  - SEA-P-013
+  - SEA-P-015
+  - SEA-E-003
+- id: SEA-TS-002
+  name: Profile Cloning
+  vector: SOCIAL
+  summary: >-
+    Mirror account of a known contact used to request data or distribute malicious links.
+  description: >-
+    Creation of a fake social media account that mirrors a real person's profile — photos,
+    bio, connections — to impersonate a known contact and request sensitive information or
+    distribute malicious links.
+  example: >-
+    An attacker creates a fake LinkedIn profile identical to a target's known colleague, then
+    connects with the target and shares a job opportunity link leading to a a collection page.
+  detection: >-
+    Verify unusual connection requests through a secondary channel before engaging. A duplicate
+    profile of someone you already know is a strong indicator of cloning.
+  forensic: >-
+    Profile created recently with copied photos. Connection request sent immediately to the
+    cloned person's known network. No prior interaction history.
+  mitre_attack:
+  - T1585.001
+  - T1656
+  combinations:
+  - SEA-TS-001
+  - SEA-TE-005
+  cross_references:
+  - SEA-P-012
+  - SEA-P-009
+  - SEA-E-005
+- id: SEA-TS-003
+  name: Angler Phishing
+  vector: SOCIAL
+  summary: >-
+    Fake support account intercepts public complaints to steal credentials under guise of
+    help.
+  description: >-
+    Monitoring of public brand mentions and complaints on social platforms to intercept dissatisfied
+    customers, then impersonating official support accounts to offer "help" while collecting
+    credentials.
+  example: >-
+    An attacker monitors Twitter/X for complaints about a bank, then responds from a fake
+    official support account offering to resolve the issue — directing the target to a fake
+    login portal.
+  detection: >-
+    Always navigate to official support through the brand's verified account or official website.
+    Responding to your public complaint from an unverified account is a strong indicator.
+  forensic: >-
+    Support account created recently with low follower count. Username variation of official
+    account. Link destination domain not matching official brand domain.
+  mitre_attack:
+  - T1566.003
+  combinations:
+  - SEA-TS-001
+  - SEA-TE-001
+  cross_references:
+  - SEA-P-007
+  - SEA-P-009
+  - SEA-E-006
+- id: SEA-TS-004
+  name: Commercial Baiting
+  vector: SOCIAL
+  summary: >-
+    Implausibly low prices for desirable items direct targets to fraudulent payment pages.
+  description: >-
+    Publication of social media advertisements or posts offering highly desirable products
+    or scarce items at implausibly low prices, directing targets to fraudulent payment sites.
+  example: >-
+    A fake Instagram ad offers the latest gaming console at 60% discount with "only 3 units
+    left", directing buyers to a spoofed e-commerce site that collects payment data and personal
+    information.
+  detection: >-
+    Prices significantly below market value for high-demand items are a reliable fraud indicator.
+    Verify the seller through official channels before any payment.
+  forensic: >-
+    Ad account created recently with no purchase history. Domain registered within weeks of
+    campaign. No physical or legal business presence.
+  mitre_attack:
+  - T1566.003
+  - T1583.001
+  combinations:
+  - SEA-TE-001
+  - SEA-TE-009
+  cross_references:
+  - SEA-P-003
+  - SEA-P-006
+  - SEA-E-002
+- id: SEA-TS-005
+  name: Catfishing / Honey Potting
+  vector: SOCIAL
+  summary: >-
+    Romantic or intellectual persona built over time to leverage emotional trust for exploitation.
+  description: >-
+    Creation of a fictitious attractive persona that establishes a romantic or intellectual
+    relationship with the target over time, eventually leveraging the emotional connection
+    for extortion, credential theft, or malware delivery.
+  example: >-
+    An attacker maintains a fake romantic profile for weeks, building emotional trust with
+    a target before requesting they install a "shared photo app" that is actually spyware.
+  detection: >-
+    Be cautious of online relationships that escalate quickly, never meet in person, and eventually
+    make requests for software installations or financial assistance.
+  forensic: >-
+    Profile uses reverse-image-searchable stock or stolen photos. Communication patterns consistent
+    with script rather than organic conversation. Request for software installation or financial
+    transfer.
+  mitre_attack:
+  - T1566.003
+  - T1585.001
+  combinations:
+  - SEA-TS-001
+  - SEA-TS-006
+  cross_references:
+  - SEA-P-009
+  - SEA-P-012
+  - SEA-E-006
+- id: SEA-TS-006
+  name: Affinity Infiltration
+  vector: SOCIAL
+  summary: >-
+    Long-term community presence builds reputation before introducing malicious content.
+  description: >-
+    Long-term infiltration of closed communities — gaming clans, professional forums, interest
+    groups — building a reputation as a trusted helpful member before introducing malicious
+    links or files.
+  example: >-
+    An attacker joins a private cybersecurity Slack community, contributes genuinely useful
+    content for months, then shares a "tool" download that contains an infostealer payload.
+  detection: >-
+    Long community tenure does not guarantee trustworthiness. Treat downloads from any community
+    member with the same scrutiny regardless of their reputation.
+  forensic: >-
+    Download introduced after extended community presence. File contains payload inconsistent
+    with stated purpose. VirusTotal hits on shared file.
+  mitre_attack:
+  - T1566.003
+  - T1585.001
+  combinations:
+  - SEA-TS-001
+  - SEA-TS-005
+  cross_references:
+  - SEA-P-012
+  - SEA-P-010
+  - SEA-E-005
+- id: SEA-TS-007
+  name: Profile Typosquatting
+  vector: SOCIAL
+  summary: >-
+    Username nearly identical to official account used for giveaway fraud or phishing links.
+  description: >-
+    Creation of social media accounts with usernames nearly identical to legitimate influencers
+    or official brand accounts — using character substitutions — to run fraudulent giveaways
+    or distribute phishing links.
+  example: >-
+    A fake account "@Oficial_Company" instead of "@OficialCompany" (underscore difference)
+    mirrors a real brand account and announces a giveaway, directing followers to a credential
+    collection page.
+  detection: >-
+    Verify official accounts through the platform's blue check verification. Search for the
+    brand through official website links rather than profile searches.
+  forensic: >-
+    Account created recently with username variation of official account. Follower ratio inconsistent
+    with claimed official status. Giveaway directs to non-official domain.
+  mitre_attack:
+  - T1585.001
+  - T1583.001
+  combinations:
+  - SEA-TE-001
+  - SEA-TS-004
+  cross_references:
+  - SEA-P-006
+  - SEA-P-004
+  - SEA-E-002
+- id: SEA-TS-008
+  name: Quid Pro Quo — Software/Cheats
+  vector: SOCIAL
+  summary: Technical game advantage offered in exchange for disabling security software.
+  description: >-
+    Offer of technical advantages in games or software — aimbots, skin mods, premium features
+    — in exchange for disabling security software or executing an attacker-provided script.
+  example: >-
+    A user in a gaming community offers a free skin unlocker tool, requiring the target to
+    disable antivirus "because it triggers false positives", then run an installer that deploys
+    an infostealer.
+  detection: >-
+    Never disable security software to install any tool, regardless of the promised benefit.
+    Requests to disable antivirus are themselves a strong attack indicator.
+  forensic: >-
+    Endpoint telemetry shows antivirus disabled immediately before execution of unsigned binary.
+    Process tree shows unexpected network connections after installation.
+  mitre_attack:
+  - T1566.003
+  - T1204
+  combinations:
+  - SEA-TS-006
+  - SEA-TP-010
+  cross_references:
+  - SEA-P-006
+  - SEA-P-010
+  - SEA-E-002
+- id: SEA-TS-009
+  name: Session Hijacking via 2FA SE
+  vector: SOCIAL
+  summary: >-
+    Target manipulated into sharing their own 2FA code under a false validation pretext.
+  description: >-
+    Manipulation of the target into providing a two-factor authentication code under a false
+    pretext — "account validation", "giveaway entry", "feature unlock" — enabling real-time
+    account takeover.
+  example: >-
+    An attacker messages a target claiming they need to "verify the account for a giveaway"
+    and asks them to share the SMS code that "just arrived" — the code is actually their own
+    2FA code for an attacker-initiated login.
+  detection: >-
+    Never share 2FA codes with anyone, regardless of reason or apparent legitimacy. A legitimate
+    platform will never ask you to share your own authentication code.
+  forensic: >-
+    Account takeover event correlated with target's receipt of legitimate 2FA SMS. Attacker's
+    login IP geographically inconsistent with target's location.
+  mitre_attack:
+  - T1566.003
+  - T1621
+  combinations:
+  - SEA-TE-010
+  - SEA-TV-002
+  cross_references:
+  - SEA-P-008
+  - SEA-P-006
+  - SEA-E-002
+- id: SEA-TS-010
+  name: Verification Scam (Blue Badge)
+  vector: SOCIAL
+  summary: >-
+    Platform impersonation offers fake verification badge to collect login credentials.
+  description: >-
+    Impersonation of a social platform's official team to convince targets they are eligible
+    for account verification, directing them to a fake form where credentials are collected
+    under the guise of the verification process.
+  example: >-
+    An attacker sends a DM appearing to be from Instagram's verification team offering a blue
+    badge — the target is directed to a fake form that captures their login and 2FA code.
+  detection: >-
+    Official verification processes on any platform never happen through direct messages or
+    third-party forms. Verification opportunities are managed through official platform settings.
+  forensic: >-
+    DM from account created recently with no official platform affiliation. Link destination
+    not on official platform domain. Credential capture event on non-official form.
+  mitre_attack:
+  - T1566.003
+  - T1656
+  combinations:
+  - SEA-TS-007
+  - SEA-TE-009
+  cross_references:
+  - SEA-P-007
+  - SEA-P-014
+  - SEA-E-004
+- id: SEA-TV-001
+  name: Soundscape Manipulation
+  vector: VISHING
+  summary: >-
+    Background audio validates the attacker's claimed environment and lowers target suspicion.
+  description: >-
+    Use of ambient audio — call center background noise, keyboard sounds, office chatter —
+    to validate the attacker's claimed context and identity during a phone-based social engineering
+    call.
+  example: >-
+    An attacker posing as IT support plays recorded call center background audio during the
+    call, making the interaction feel like a legitimate help desk contact and lowering the
+    target's suspicion.
+  detection: >-
+    Background noise cannot authenticate identity. Always verify caller identity through an
+    official directory number before sharing any information, regardless of how the call environment
+    sounds.
+  forensic: >-
+    Call recording contains looped or lower-quality audio inconsistent with live environment.
+    Background audio identifiable as commonly available soundscape recording.
+  mitre_attack:
+  - T1598.004
+  combinations:
+  - SEA-TV-003
+  - SEA-TV-005
+  cross_references:
+  - SEA-P-007
+  - SEA-P-015
+  - SEA-E-004
+- id: SEA-TV-002
+  name: IVR Phishing
+  vector: VISHING
+  summary: >-
+    Automated IVR system collects credentials without any human attacker involvement.
+  description: >-
+    Use of automated interactive voice response systems to simulate legitimate institutions,
+    inducing targets to enter sensitive data — passwords, tax IDs, account numbers — via telephone
+    keypad without any human attacker involvement.
+  example: >-
+    A robocall impersonating a bank's IVR system asks the target to "confirm account details
+    by pressing keys" — collecting credentials fully automated without requiring a live attacker.
+  detection: >-
+    Legitimate institutions never request full passwords or full account numbers via automated
+    phone systems. Hang up and call back through the official number printed on your card
+    or statement.
+  forensic: >-
+    Phone number not listed in official institution directory. IVR tree does not match official
+    institution's known automated system structure.
+  mitre_attack:
+  - T1598.004
+  combinations:
+  - SEA-TV-003
+  - SEA-TV-001
+  cross_references:
+  - SEA-P-007
+  - SEA-P-005
+  - SEA-E-004
+- id: SEA-TV-003
+  name: Caller ID Spoofing
+  vector: VISHING
+  summary: Displayed caller ID spoofed to show a legitimate number the target recognizes.
+  description: >-
+    Technical manipulation of the displayed caller ID to show a legitimate phone number —
+    bank, IT department, government agency — overcoming initial distrust based on number recognition.
+  example: >-
+    An attacker spoofs the official IT help desk number so it appears as a known internal
+    extension in the target's phone, causing them to answer and engage without suspicion.
+  detection: >-
+    A recognized number on the display does not authenticate the caller. Verify identity by
+    asking questions only the real department would know, or hang up and call back through
+    the official number.
+  forensic: >-
+    CDR shows originating number different from displayed CLI. Call originated from VoIP provider
+    not associated with the spoofed organization.
+  mitre_attack:
+  - T1598.004
+  - T1656
+  combinations:
+  - SEA-TV-001
+  - SEA-TV-005
+  cross_references:
+  - SEA-P-007
+  - SEA-P-013
+  - SEA-E-004
+- id: SEA-TV-004
+  name: AI Voice Deepfake
+  vector: VISHING
+  summary: >-
+    AI-cloned voice of a known person used to authorize actions or extract information.
+  description: >-
+    Cloning of a specific person's vocal biometrics using AI synthesis to conduct conversations
+    with the target's voice timbre and intonation, enabling impersonation of executives, family
+    members, or colleagues.
+  example: >-
+    An attacker uses a cloned voice model of the CFO — built from publicly available recordings
+    — to call the finance department and authorize an urgent wire transfer.
+  detection: >-
+    Deepfake audio is increasingly indistinguishable from real voices. Establish out-of-band
+    verification procedures for any high-value request, regardless of how familiar the voice
+    sounds.
+  forensic: >-
+    Audio analysis reveals synthesis artifacts. Request correlates with known attacker campaign
+    patterns. No corroborating email or system record of the requested action.
+  mitre_attack:
+  - T1598.004
+  - T1656
+  combinations:
+  - SEA-TV-003
+  - SEA-TV-005
+  cross_references:
+  - SEA-P-007
+  - SEA-P-009
+  - SEA-P-012
+  - SEA-E-004
+  - SEA-E-006
+- id: SEA-TV-005
+  name: Warm Transfer
+  vector: VISHING
+  summary: >-
+    Established trust transferred to a second attacker who escalates the data request.
+  description: >-
+    After establishing initial trust, the attacker transfers the target to a second attacker
+    posing as a supervisor or security specialist, leveraging accumulated trust and psychological
+    exhaustion to extract more sensitive information.
+  example: >-
+    An initial caller establishes rapport as a tier-1 support agent, then "escalates" to a
+    "security specialist" — the second attacker inherits the trust built by the first and
+    requests increasingly sensitive data.
+  detection: >-
+    Being transferred to a more senior caller does not increase the legitimacy of the interaction.
+    Treat the transferred call with the same scrutiny as the initial call.
+  forensic: >-
+    Two distinct voices in call recording with scripted handoff. Second caller appears immediately
+    without hold time consistent with genuine internal transfer.
+  mitre_attack:
+  - T1598.004
+  combinations:
+  - SEA-TV-003
+  - SEA-TV-001
+  cross_references:
+  - SEA-P-007
+  - SEA-P-014
+  - SEA-E-004
+- id: SEA-TV-006
+  name: PBX Hacking
+  vector: VISHING
+  summary: Compromised PBX enables calls from genuine internal extension numbers.
+  description: >-
+    Compromise of a legitimate organization's telephone exchange infrastructure, allowing
+    the attacker to place calls that originate from real, verified internal extension numbers
+    of the target organization.
+  example: >-
+    An attacker compromises a company's PABX system and places calls to employees displaying
+    as the real IT department internal extension — the number is genuinely internal.
+  detection: >-
+    Even verified internal extensions require identity confirmation before sharing sensitive
+    information. PBX compromise is rare but defeats number-based verification entirely.
+  forensic: >-
+    Outbound call records from PBX do not match expected legitimate traffic patterns. Calls
+    placed outside normal hours from internal extensions.
+  mitre_attack:
+  - T1598.004
+  - T1584
+  combinations:
+  - SEA-TV-003
+  - SEA-TV-001
+  cross_references:
+  - SEA-P-007
+  - SEA-P-012
+  - SEA-E-004
+- id: SEA-TV-007
+  name: Fake Base Station (IMSI Catcher)
+  vector: VISHING
+  summary: >-
+    IMSI catcher forces device connection to attacker infrastructure for interception.
+  description: >-
+    Use of IMSI catcher devices to force nearby mobile devices to connect to attacker-controlled
+    infrastructure, enabling call interception, SMS injection, or calls appearing to originate
+    from legitimate numbers.
+  example: >-
+    An attacker deploys a portable IMSI catcher near a target facility, intercepting employee
+    SMS authentication codes and injecting fake messages appearing to come from the corporate
+    security team.
+  detection: >-
+    Unusual battery drain, unexpected calls dropping to 2G, or unexpected SMS messages from
+    known senders may indicate IMSI catcher presence. Use encrypted messaging apps where possible.
+  forensic: >-
+    SMS received but not sent by claimed originating party. Call metadata shows connection
+    to non-carrier tower. Geolocation of intercept correlated with known IMSI catcher deployment
+    area.
+  mitre_attack:
+  - T1598.004
+  - T1557
+  combinations:
+  - SEA-TV-003
+  - SEA-TV-002
+  cross_references:
+  - SEA-P-007
+  - SEA-P-005
+  - SEA-E-001

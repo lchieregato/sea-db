@@ -1,0 +1,281 @@
+# SEA.db — Emotions (SEA-E)
+# 7 entries. Canonical source: edit here and open a pull request.
+# IDs are permanent. See CONTRIBUTING.md.
+- id: SEA-E-001
+  name: Fear / Urgency
+  summary: >-
+    Threat perception triggers fight-or-flight, driving a single decisive action without hesitation.
+  description: >-
+    A state of perceived threat or imminent negative consequence that activates the fight-or-flight
+    response, dramatically reducing deliberate analysis and pushing the target toward immediate
+    defensive action. Produces a single decisive action — the target does not return.
+  example: >-
+    An employee receives a warning that their corporate account will be locked in 2 hours
+    unless they verify credentials immediately — the threat triggers rapid, non-hesitating
+    action without verification.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Threat response bypasses frontal deliberation. Click-to-collect conversion is high — who
+    clicks out of fear does not hesitate at the collection form.
+  keywords:
+  - suspended
+  - locked
+  - expired
+  - penalty
+  - deadline
+  - access
+  - alert
+  - verify
+  - compliance
+  - immediate
+  themes:
+  - Account suspension
+  - Tax/regulatory penalty
+  - Security alert
+  - System lockout
+  - Legal threat
+  effective_with: SEA-P-001 (Urgency) · SEA-P-005 (Intimidation)
+  cross_references:
+  - SEA-P-001
+  - SEA-P-005
+  - SEA-TE-007
+  - SEA-C-001
+- id: SEA-E-002
+  name: Happiness / Benefit
+  summary: >-
+    Reward anticipation suppresses skepticism — the target wants the offer to be real.
+  description: >-
+    A state of positive anticipation and reward-seeking triggered by the prospect of financial
+    gain, prizes, or unexpected benefits. Optimism bias suppresses skepticism — the target
+    wants the offer to be real and their judgment adjusts accordingly.
+  example: >-
+    An employee receives an email announcing cash prize gift from the company for the holiday
+    season — excitement overrides scrutiny of the sender domain and landing page.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Reward anticipation activates a dopamine-driven approach response. Unlike Fear, Happiness
+    produces return behavior — the target may revisit the link expecting to complete the process.
+  keywords:
+  - gift
+  - reward
+  - bonus
+  - prize
+  - cashback
+  - selected
+  - benefit
+  - exclusive
+  - won
+  - claim
+  themes:
+  - Bonuses
+  - Prizes
+  - Cashback
+  - Exclusive access
+  - Gift cards
+  - Year-end benefits
+  effective_with: SEA-P-006 (Greed/Benefit) · SEA-P-002 (Reciprocity)
+  cross_references:
+  - SEA-P-006
+  - SEA-P-002
+  - SEA-TE-001
+  - SEA-TE-009
+  - SEA-C-003
+- id: SEA-E-003
+  name: Curiosity / Intrigue
+  summary: >-
+    An information gap drives the click; critical thinking may re-engage before data submission.
+  description: >-
+    A state of information-seeking drive triggered by incomplete, mysterious, or unexpected
+    stimuli. The target clicks to resolve the information gap.
+  example: >-
+    An email with subject "Someone shared a document with you" or "Your name appeared in this
+    report" triggers curiosity that drives the click.
+  cognitive_system: S1/S2 hybrid
+  cognitive_note: >-
+    Curiosity drives the initial click via S1 (automatic). But if the information gap does
+    not match expectations, it may trigger S2 re-evaluating data submission.
+  keywords:
+  - shared
+  - mention
+  - document
+  - report
+  - leaked
+  - confidential
+  - someone
+  - notification
+  - found
+  - update
+  themes:
+  - Shared files
+  - Name mentions in documents
+  - Leaked information
+  - Mysterious notifications
+  - Unexpected packages
+  effective_with: SEA-P-008 (Curiosity) · SEA-P-013 (Context Validation)
+  cross_references:
+  - SEA-P-008
+  - SEA-TE-005
+  - SEA-TS-009
+  - SEA-C-004
+- id: SEA-E-004
+  name: Authority / Conformity
+  summary: >-
+    Deference to formal authority drives deliberate compliance — the target processes a directive,
+    not an impulse.
+  description: >-
+    A state of deference and compliance triggered by perceived legitimate power — a manager,
+    executive, regulator, or government body. The target suppresses their own judgment to
+    avoid conflict with authority or regulatory consequences.
+  example: >-
+    An email from an apparent C-suite executive requests compliance on a routine administrative
+    matter — the target acts without verification to avoid perceived professional or legal
+    risk.
+  cognitive_system: S2 dominant
+  cognitive_note: >-
+    Formal authority without an urgency trigger is processed deliberately: the target evaluates
+    the directive as legitimate and complies as a procedural decision rather than an impulse.
+    This is the dataset's one predominantly S2 emotion, which is why authority-only pretexts
+    produce the lowest impulsive click. Authority paired with an urgency or fear trigger shifts
+    the mechanism toward S1.
+  keywords:
+  - mandatory
+  - directive
+  - compliance
+  - policy
+  - regulation
+  - audit
+  - executive
+  - official
+  - required
+  - legal
+  themes:
+  - Executive directives
+  - Regulatory compliance
+  - IT security mandates
+  - Government demands
+  - Legal notices
+  effective_with: SEA-P-007 (Authority) · SEA-P-015 (Pretexting)
+  cross_references:
+  - SEA-P-007
+  - SEA-P-011
+  - SEA-TE-002
+  - SEA-TE-006
+  - SEA-C-001
+- id: SEA-E-005
+  name: Belonging / Social
+  summary: >-
+    Social exclusion threat produces the highest conversion rate among all emotional states.
+  description: >-
+    A state of social inclusion drive — the target acts to maintain perceived standing in
+    a group, avoid exclusion, or conform to implied peer behavior.
+  example: >-
+    An email implies the target is the only team member who has not completed a internal survey,
+    creating social pressure to conform and avoid standing out as the non-compliant outlier.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Social inclusion instinct operates below conscious deliberation. The target does not reason
+    about whether to comply — the impulse to belong overrides verification.
+  keywords:
+  - team
+  - colleagues
+  - everyone
+  - department
+  - group
+  - already
+  - only you
+  - pending
+  - join
+  - members
+  themes:
+  - Team compliance
+  - Peer progress
+  - Group belonging
+  - Departmental mandates
+  - '"Everyone already did"'
+  effective_with: SEA-P-001 (Belonging) · SEA-P-004 (Social Proof)
+  cross_references:
+  - SEA-P-004
+  - SEA-P-012
+  - SEA-TE-002
+  - SEA-TS-003
+  - SEA-C-002
+- id: SEA-E-006
+  name: Compassion / Empathy
+  summary: Empathic response displaces the cognitive resources available for verification.
+  description: >-
+    A state of emotional resonance with a perceived victim or person in distress, triggering
+    the helping impulse and lowering the target's critical evaluation of the requester's legitimacy.
+    The target's attention shifts to the suffering rather than the request.
+  example: >-
+    A caller claims to be a distressed colleague locked out of a critical system before an
+    important deadline — the target's empathy overrides their verification reflex.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Empathic response is automatic and pre-rational. The target's focus moves to the other
+    person's distress, displacing the cognitive resources that would normally be available
+    for verification.
+  keywords:
+  - help
+  - urgent
+  - locked out
+  - please
+  - colleague
+  - emergency
+  - deadline
+  - stuck
+  - need
+  - favor
+  themes:
+  - Colleague in crisis
+  - Lost access emergency
+  - Urgent help requests
+  - Distressed caller
+  - Apparent victim
+  effective_with: SEA-P-009 (Sympathy) · SEA-P-010 (Altruism)
+  cross_references:
+  - SEA-P-009
+  - SEA-P-010
+  - SEA-TV-004
+  - SEA-TP-001
+  - SEA-TP-004
+- id: SEA-E-007
+  name: Shame / Compliance Pressure
+  summary: >-
+    Reputational threat through non-compliance framing produces shame — felt impulsively,
+    but acted on deliberately.
+  description: >-
+    A state of social discomfort triggered by the implication that the target is non-compliant,
+    incompetent, or behind their peers. Distinct from Fear in that the threat is social and
+    reputational rather than material.
+  example: >-
+    An email implies a mandatory compliance training, creating shame-driven urgency — they
+    comply to avoid appearing negligent rather than to avoid a direct threat.
+  cognitive_system: S1/S2 hybrid
+  cognitive_note: >-
+    Shame is a self-conscious emotion: the affective sting registers immediately (S1), but
+    acting on it requires social self-evaluation and a reputation-driven decision to comply
+    (S2). The target is largely aware of what they are doing and why, which makes the state
+    difficult to resist.
+  keywords:
+  - overdue
+  - incomplete
+  - non-compliant
+  - reminder
+  - only one
+  - still pending
+  - action required
+  - follow up
+  - missed
+  - behind
+  themes:
+  - Non-compliance framing
+  - Peer comparison
+  - '"Only one who hasn''t"'
+  - Competence threat
+  - Professional reputation
+  effective_with: SEA-P-004 (Social Proof) · SEA-P-011 (Conformity)
+  cross_references:
+  - SEA-P-004
+  - SEA-P-011
+  - SEA-P-014
+  - SEA-TE-006

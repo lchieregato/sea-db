@@ -1,0 +1,116 @@
+# SEA.db — Contexts (SEA-C)
+# 4 entries. Canonical source: edit here and open a pull request.
+# IDs are permanent. See CONTRIBUTING.md.
+- id: SEA-C-001
+  name: External Anchored Event
+  summary: >-
+    Real external event provides built-in plausibility — no internal inputs required.
+  description: >-
+    A context in which the attack pretext is grounded in a real, widely-known external event
+    — tax reform, election, regulatory change, natural disaster, or major market event — that
+    provides built-in plausibility and eliminates the need for internal organizational inputs.
+    The event is real; only the communication is fabricated.
+  example: >-
+    Approaches related to a new tax law/change, or to a nationwide procedure regarding health
+    (like covid) — employees could verify the context is real, which makes the fabricated
+    communication appear credible.
+  pretext_type: External (event-anchored)
+  seasonal: false
+  temporal_window: Real-time external event
+  cognitive_load: >-
+    High — target is processing a real external change while simultaneously evaluating an
+    unexpected communication about it
+  inputs_required: >-
+    Minimal — public event knowledge + easily obtainable visual elements (government logo).
+    No internal organizational data required.
+  external_dependency: true
+  cross_references:
+  - SEA-P-007
+  - SEA-P-008
+  - SEA-TE-003
+  - SEA-TE-006
+  - SEA-E-001
+  - SEA-E-004
+- id: SEA-C-002
+  name: Internal Pure Pretext
+  summary: >-
+    Internal identity and process language produce high plausibility for organizational insiders.
+  description: >-
+    A context in which the attack pretext relies entirely on the target organization's internal
+    identity — internal sender persona, internal process language, internal visual identity
+    — requiring prior intelligence gathering but producing high plausibility for insiders.
+  example: >-
+    A campaign using the internal IT department identity to announce a mandatory security
+    update, sent from a spoofed internal-looking domain with the organization's logo and a
+    real employee signature.
+  pretext_type: Internal
+  seasonal: false
+  temporal_window: Routine operational window
+  cognitive_load: >-
+    Medium — familiar organizational context reduces alert state, increasing susceptibility
+  inputs_required: >-
+    Significant — requires logo, sender identity, employee names, and understanding of internal
+    processes.
+  external_dependency: false
+  cross_references:
+  - SEA-P-007
+  - SEA-P-012
+  - SEA-TE-002
+  - SEA-TE-004
+  - SEA-E-004
+  - SEA-E-005
+- id: SEA-C-003
+  name: Seasonal Window
+  summary: >-
+    Recurring calendar events prime targets to expect communications, lowering scrutiny.
+  description: >-
+    A context aligned with predictable, recurring calendar events — year-end bonuses, tax
+    declaration season, Black Friday, annual performance reviews — where employees are already
+    primed to expect certain communication types, lowering their scrutiny threshold.
+  example: >-
+    A December campaign using a year-end bonus pretext — targets were already expecting bonus-related
+    communications from HR, reducing scrutiny of an email announcing a cash prize gift.
+  pretext_type: External seasonal
+  seasonal: true
+  temporal_window: Predictable recurring calendar event
+  cognitive_load: >-
+    Medium — seasonal expectation creates a plausibility shortcut without requiring real-time
+    event monitoring
+  inputs_required: >-
+    Low to medium — seasonal anchor requires only calendar alignment. May require minimal
+    visual elements (company logo for bonus communication).
+  external_dependency: false
+  cross_references:
+  - SEA-P-003
+  - SEA-P-006
+  - SEA-TE-007
+  - SEA-E-002
+  - SEA-E-003
+- id: SEA-C-004
+  name: Routine Opportunity
+  summary: >-
+    Routine administrative framing produces plausibility without any temporal anchor.
+  description: >-
+    A context with no external event anchor and no seasonal trigger — the attack appears as
+    a routine administrative or operational communication that could plausibly arrive at any
+    time, relying on operational normalcy rather than temporal pressure.
+  example: >-
+    A campaign using a "shared document" or "pending IT update" pretext deployed mid-week
+    with no time anchor — plausible because such communications are routine, unremarkable,
+    and expected.
+  pretext_type: Internal or generic
+  seasonal: false
+  temporal_window: No specific trigger — ongoing operational normalcy
+  cognitive_load: >-
+    Low — routine frame does not elevate alertness, but also does not produce urgency-driven
+    action
+  inputs_required: >-
+    Minimal — may use minimal branding or generic platform identity (file-sharing service).
+    No event or organizational dependency.
+  external_dependency: false
+  cross_references:
+  - SEA-P-008
+  - SEA-P-012
+  - SEA-TE-005
+  - SEA-TE-010
+  - SEA-E-003

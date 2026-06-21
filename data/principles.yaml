@@ -1,0 +1,420 @@
+# SEA.db — Principles (SEA-P)
+# 15 entries. Canonical source: edit here and open a pull request.
+# IDs are permanent. See CONTRIBUTING.md.
+- id: SEA-P-001
+  name: Urgency
+  summary: >-
+    Time pressure engineered to bypass critical thinking through harm-avoidance instinct.
+  description: >-
+    The attacker instills a sense of immediate threat or time pressure, forcing the target
+    to act quickly and bypass deliberate evaluation. Implies negative consequences if the
+    target delays — distinct from Scarcity in that urgency centers on harm avoidance rather
+    than missed opportunity.
+  example: >-
+    An email warns that the target's corporate account will be suspended in 2 hours unless
+    they complete an immediate verification step on the landing page.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Urgency activates the threat-response system, suppressing frontal deliberation (S2). The
+    target acts to avoid the perceived harm before critical evaluation can engage.
+  mitre_attack:
+  - T1566
+  - T1598.003
+  cross_references:
+  - SEA-E-001
+  - SEA-TE-007
+  - SEA-TV-001
+  - SEA-C-001
+  bowtie: >-
+    Cause: time pressure and harm avoidance → Threat: fake suspension or penalty notice →
+    Event: rushed action without verification → Consequence: credential or data collection
+    → Mitigation: pause-and-verify protocol
+- id: SEA-P-002
+  name: Reciprocity
+  summary: >-
+    An unsolicited gift creates psychological debt, making the target feel obligated to comply.
+  description: >-
+    The attacker first offers something of perceived value — a benefit, help, or small gift
+    — creating a psychological debt that makes the target feel obligated to comply with a
+    subsequent request. The obligation operates even when the initial offer was unsolicited.
+  example: >-
+    An attacker sends a genuinely useful security guide or discount code first, then follows
+    up requesting credentials framed as a routine activation step to "claim" the benefit.
+  cognitive_system: S2 dominant
+  cognitive_note: >-
+    Reciprocity engages deliberate social cognition — the target consciously feels a debt
+    and reasons that compliance is fair. Unlike most principles, this one works through considered
+    judgment rather than bypassing it.
+  mitre_attack:
+  - T1566.001
+  - T1598
+  cross_references:
+  - SEA-E-002
+  - SEA-E-006
+  - SEA-TE-009
+  bowtie: >-
+    Cause: sense of obligation from received benefit → Threat: unsolicited gift followed by
+    data request → Event: compliance to repay perceived debt → Consequence: credential or
+    sensitive data exposure → Mitigation: awareness training on unsolicited benefit patterns
+- id: SEA-P-003
+  name: Scarcity
+  summary: Artificial scarcity triggers FOMO, pushing action before evaluation can occur.
+  description: >-
+    Creates a perception of limited availability — time, access, or reward — triggering FOMO
+    (fear of missing out) and pushing the target to act before critical evaluation. The threat
+    is not harm but the irreversible loss of something desirable.
+  example: >-
+    An email informs that only 3 slots remain for a corporate benefit program and access expires
+    in 24 hours, creating urgency driven by the fear of being left out rather than by direct
+    threat.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Scarcity triggers an impulsive approach response — the target moves toward the scarce
+    resource before S2 deliberation can evaluate its legitimacy.
+  mitre_attack:
+  - T1566
+  - T1598
+  cross_references:
+  - SEA-E-001
+  - SEA-E-002
+  - SEA-TE-007
+  - SEA-C-003
+  bowtie: >-
+    Cause: FOMO and fear of exclusion → Threat: artificial deadline or limited-access message
+    → Event: rapid action without verification → Consequence: credential or data collection
+    → Mitigation: deadline verification procedure
+- id: SEA-P-004
+  name: Social Proof
+  summary: >-
+    Fabricated peer compliance normalizes the behavior and suppresses individual scrutiny.
+  description: >-
+    The attacker implies that others have already performed the requested action, leveraging
+    conformity bias to normalize the behavior and reduce individual critical evaluation. The
+    target avoids the discomfort of being the outlier.
+  example: >-
+    An email states that "94% of employees have already completed the security update" and
+    asks the target to join their peers, framing non-compliance as abnormal rather than cautious.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Social norm heuristics operate automatically and pre-rationally — the target does not
+    consciously reason through the decision but is pulled by the implicit social current.
+  mitre_attack:
+  - T1566.001
+  cross_references:
+  - SEA-E-005
+  - SEA-E-007
+  - SEA-TS-001
+  bowtie: >-
+    Cause: conformity bias and fear of social deviance → Threat: fabricated peer compliance
+    message → Event: action taken to match perceived norm → Consequence: credential or data
+    collection → Mitigation: critical thinking training on social norm manipulation
+- id: SEA-P-005
+  name: Intimidation / Fear
+  summary: >-
+    Fabricated threats of legal, financial, or professional harm force compliance through
+    fear.
+  description: >-
+    The attacker uses threats of negative consequences — legal liability, account suspension,
+    financial penalties, job risk — to force compliance through fear rather than persuasion.
+    The threat itself may be entirely fabricated.
+  example: >-
+    An email impersonating Legal or Compliance warns the target of imminent disciplinary action
+    unless they verify their credentials immediately, with reference to a fake internal policy
+    number.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Threat response bypasses frontal deliberation. The target's fight-or-flight system activates
+    before S2 can evaluate the credibility of the threat.
+  mitre_attack:
+  - T1566
+  - T1656
+  - T1598
+  cross_references:
+  - SEA-E-001
+  - SEA-TE-007
+  - SEA-TV-001
+  - SEA-C-001
+  bowtie: >-
+    Cause: fear of legal or professional consequences → Threat: fake regulatory demand with
+    penalty framing → Event: data submission under perceived obligation → Consequence: credential
+    or PII collection → Mitigation: regulatory communication verification protocol
+- id: SEA-P-006
+  name: Greed / Tempting Proposal
+  summary: >-
+    Disproportionate reward offers suppress skepticism through optimism and desire for gain.
+  description: >-
+    The attacker offers disproportionate rewards — money, prizes, bonuses, exclusive access
+    — exploiting the target's desire for gain and lowering their critical evaluation of the
+    offer's legitimacy. Optimism bias amplifies the effect.
+  example: >-
+    An email informs the target they have been selected to receive a cash prize gift from
+    the company for the holiday season, asking them to confirm their payment key on a spoofed
+    page.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Reward anticipation activates a dopaminergic approach response, suppressing skepticism.
+    The target moves toward the reward before S2 can evaluate its plausibility.
+  mitre_attack:
+  - T1566.001
+  cross_references:
+  - SEA-E-002
+  - SEA-TE-001
+  - SEA-TE-009
+  - SEA-C-003
+  bowtie: >-
+    Cause: reward anticipation and optimism bias → Threat: fake benefit or prize notification
+    → Event: click and data entry → Consequence: credential or financial data collection →
+    Mitigation: verification of benefits through official HR channels
+- id: SEA-P-007
+  name: Authority
+  summary: Impersonating power figures causes targets to comply without questioning.
+  description: >-
+    The attacker impersonates a figure of power — an executive, government body, IT department,
+    or regulator — causing the target to hesitate to question or verify the request. The authority
+    figure's status suppresses the target's instinct to push back.
+  example: >-
+    An email appears to come from the CFO demanding immediate compliance with a fiscal procedure
+    or an IT director requesting a security procedure, using formal language, official logos,
+    and specific regulatory references.
+  cognitive_system: S1/S2 hybrid
+  cognitive_note: >-
+    Authority suppresses S2 questioning while S2 simultaneously constructs post-hoc rationalization
+    for compliance ("it makes sense that IT would ask this"). Both systems work against verification.
+  mitre_attack:
+  - T1566.002
+  - T1656
+  cross_references:
+  - SEA-E-004
+  - SEA-TE-002
+  - SEA-TE-006
+  - SEA-TV-002
+  - SEA-C-001
+  bowtie: >-
+    Cause: deference to authority figures → Threat: spoofed high-status sender → Event: compliance
+    without verification → Consequence: credential or sensitive data exposure → Mitigation:
+    out-of-band verification protocol
+- id: SEA-P-008
+  name: Curiosity
+  summary: >-
+    Incomplete or mysterious information triggers an information-seeking drive that produces
+    the click.
+  description: >-
+    The attacker awakens the target's interest with incomplete information, mysterious subject
+    lines, or unexpected notifications, inducing clicks or access to resolve the information
+    gap.
+  example: >-
+    An email with subject "Someone shared a confidential document with you" or "Your name
+    appeared in this report" triggers an information-seeking drive that produces the click.
+  cognitive_system: S1/S2 hybrid
+  cognitive_note: >-
+    Curiosity drives the initial click via S1 (automatic information-seeking), but the target
+    may re-engage S2 critical analysis before submitting data.
+  mitre_attack:
+  - T1566.001
+  - T1598
+  cross_references:
+  - SEA-E-003
+  - SEA-TE-005
+  - SEA-TS-009
+  - SEA-C-004
+  bowtie: >-
+    Cause: information gap and novelty-seeking drive → Threat: incomplete or mysterious notification
+    → Event: click to resolve information gap → Consequence: landing on collection page →
+    Mitigation: hover-to-verify training before clicking links
+- id: SEA-P-009
+  name: Sympathy / Compassion
+  summary: A distress persona exploits empathy to bypass verification and grant access.
+  description: >-
+    The attacker creates an emotional connection or poses as a victim in distress, exploiting
+    the target's empathy to solicit help, access, or sensitive information. The helping impulse
+    overrides verification.
+  example: >-
+    A caller claims to be a colleague locked out of their account in an urgent situation,
+    asking the target to share their own credentials temporarily to help complete a critical
+    deadline task.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Empathic response is automatic and pre-rational. The target's helping impulse fires before
+    they evaluate the legitimacy of the request.
+  mitre_attack:
+  - T1598.004
+  - T1566
+  cross_references:
+  - SEA-E-006
+  - SEA-TV-004
+  - SEA-TP-001
+  bowtie: >-
+    Cause: empathic response to perceived distress → Threat: fabricated emergency or distressed
+    persona → Event: credential sharing or access granting → Consequence: unauthorized access
+    → Mitigation: identity verification before any credential sharing
+- id: SEA-P-010
+  name: Altruism / Desire to Help
+  summary: >-
+    Natural helpfulness is weaponized — the target assists without verifying who they are
+    helping.
+  description: >-
+    The attacker exploits the natural human tendency to assist those who appear to need help,
+    framing the attack as an opportunity for the target to be genuinely useful. Distinct from
+    Compassion in that no emotional distress is required — simple helpfulness is sufficient.
+  example: >-
+    A physical intruder approaches a reception desk appearing confused and carrying heavy
+    boxes, prompting staff to assist by granting access without following verification protocol.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Prosocial helping is an automatic, socially rewarded behavior. The target does not deliberate
+    — helping feels like the right thing to do in the moment.
+  mitre_attack:
+  - T1078 (physical context)
+  cross_references:
+  - SEA-E-006
+  - SEA-TP-002
+  - SEA-TP-004
+  bowtie: >-
+    Cause: prosocial helping drive → Threat: attacker posing as someone needing assistance
+    → Event: access or information granted without verification → Consequence: unauthorized
+    physical or logical access → Mitigation: verify-first culture regardless of apparent need
+- id: SEA-P-011
+  name: Conformity / Compliance
+  summary: >-
+    Rule-following disposition is exploited by framing the attack as a compliance requirement.
+  description: >-
+    The attacker exploits the target's inclination to follow rules, hierarchies, and procedures
+    without question, framing the attack as a routine compliance requirement. The target acts
+    to remain within expected institutional behavior.
+  example: >-
+    An email impersonating the IT department states that all employees must complete a mandatory
+    security compliance update per company policy by end of day, with a reference policy number.
+  cognitive_system: S2 dominant
+  cognitive_note: >-
+    Compliance is a deliberate rule-following behavior, but in high-procedure environments
+    it becomes heuristic — the target follows the apparent rule without evaluating whether
+    the source is legitimate.
+  mitre_attack:
+  - T1566.001
+  - T1656
+  cross_references:
+  - SEA-E-004
+  - SEA-E-007
+  - SEA-TE-002
+  - SEA-TE-006
+  bowtie: >-
+    Cause: rule-following disposition → Threat: fake policy or compliance mandate → Event:
+    action taken to remain compliant → Consequence: credential or data collection → Mitigation:
+    official channel protocol for policy communications
+- id: SEA-P-012
+  name: Affinity / Familiarity
+  summary: >-
+    Familiar visual or relational cues trigger automatic trust before scrutiny can engage.
+  description: >-
+    The attacker mimics someone the target knows or trusts — a colleague, manager, vendor,
+    or familiar brand — reducing suspicion by leveraging established relationships or visual
+    recognition. Familiarity creates trust without requiring the target to actively evaluate
+    credibility.
+  example: >-
+    An email uses the exact signature, name, and logo of a known internal contact or trusted
+    vendor, making the communication appear routine and trustworthy without triggering scrutiny.
+  cognitive_system: S1 dominant
+  cognitive_note: >-
+    Familiar cues trigger a trust heuristic that operates automatically — recognizing a known
+    visual or name suppresses the verification reflex before it fires.
+  mitre_attack:
+  - T1566.001
+  - T1534
+  cross_references:
+  - SEA-E-005
+  - SEA-TE-004
+  - SEA-TE-002
+  - SEA-TP-002
+  bowtie: >-
+    Cause: cognitive shortcut of trusting the familiar → Threat: spoofed identity or cloned
+    brand → Event: interaction without verification → Consequence: credential or data collection
+    → Mitigation: identity confirmation through secondary channel
+- id: SEA-P-013
+  name: Context Validation / Internal Knowledge
+  summary: >-
+    Internal knowledge signals apparent insider status, satisfying the target's verification
+    heuristic.
+  description: >-
+    The attacker uses internal jargon, specific employee names, organizational processes,
+    or data exclusive to the target environment to demonstrate apparent insider status and
+    eliminate doubt about legitimacy.
+  example: >-
+    An attacker references the target's internal project codename, their manager's name, and
+    a recent all-hands meeting topic in a vishing call to establish credibility as an insider.
+  cognitive_system: S2 dominant
+  cognitive_note: >-
+    Internal knowledge specifically targets the target's deliberate verification heuristic
+    ("would an outsider know this?"). By answering yes, the attacker defeats the most common
+    S2 check.
+  mitre_attack:
+  - T1589
+  - T1598
+  cross_references:
+  - SEA-E-004
+  - SEA-TV-003
+  - SEA-TP-008
+  - SEA-TS-001
+  bowtie: >-
+    Cause: insider knowledge as credibility signal → Threat: attacker using OSINT or prior
+    access to demonstrate context → Event: verification attempt satisfied → Consequence: trust
+    established, attack proceeds → Mitigation: secondary verification beyond knowledge factors
+- id: SEA-P-014
+  name: Commitment / Foot-in-the-Door
+  summary: >-
+    Small harmless concessions establish a compliance pattern that escalates to sensitive
+    requests.
+  description: >-
+    The attacker obtains a small, seemingly harmless initial concession, establishing a pattern
+    of compliance that makes it psychologically difficult for the target to refuse progressively
+    larger requests.
+  example: >-
+    A caller first asks the target to confirm rather harmless information like name and department,
+    then later after a time consuming proccess asks for their employee ID (borderline), and
+    after some other distractive oriented proccess asks for their password reset code — each
+    step normalized by the previous compliance.
+  cognitive_system: S2 degrades to S1
+  cognitive_note: >-
+    Initial compliance is a deliberate S2 choice ("this seems harmless"). Subsequent compliance
+    is increasingly automatic — the target has already established a compliance pattern and
+    breaking it requires more effort than continuing.
+  mitre_attack:
+  - T1598
+  cross_references:
+  - SEA-E-007
+  - SEA-TV-005
+  - SEA-TS-010
+  bowtie: >-
+    Cause: consistency pressure and sunk-cost commitment → Threat: escalating request sequence
+    starting with harmless concessions → Event: gradual compliance to increasingly sensitive
+    requests → Consequence: full credential or access disclosure → Mitigation: reset-and-verify
+    training at each escalation step
+- id: SEA-P-015
+  name: Pretexting / Objection Anticipation
+  summary: >-
+    A detailed backstory preemptively answers every objection the target might raise.
+  description: >-
+    The attacker constructs a highly detailed, internally consistent backstory that preemptively
+    answers likely objections, making it difficult for the target to find a logical reason
+    to refuse without appearing unreasonable.
+  example: >-
+    An attacker posing as an IT auditor presents a printed work order with a ticket number,
+    references an ongoing maintenance window, and explains why the normal verification procedure
+    must be bypassed — every anticipated objection is addressed before it is raised.
+  cognitive_system: S2 targeted
+  cognitive_note: >-
+    Pretexting specifically defeats deliberate verification by providing all expected evidence
+    preemptively. The target's S2 check ("does this make sense?") is answered before it is
+    asked.
+  mitre_attack:
+  - T1656
+  - T1589
+  cross_references:
+  - SEA-E-004
+  - SEA-TP-002
+  - SEA-TV-003
+  - SEA-TP-009
+  bowtie: >-
+    Cause: gap between appearance of legitimacy and actual verification → Threat: elaborate
+    backstory that preempts doubt → Event: target's verification heuristic satisfied → Consequence:
+    access or information granted → Mitigation: out-of-band verification independent of provided
+    evidence
