@@ -1,0 +1,32 @@
+name: build
+on:
+  push:
+    branches: [main, master]
+    paths: ['data/**', 'schema/**', 'tools/**', '.github/workflows/build.yml']
+  pull_request:
+    paths: ['data/**', 'schema/**', 'tools/**']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/requirements.txt
+      - name: Validate and build dist/sea-db.json
+        run: python tools/build.py
+      - name: Commit regenerated JSON
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "sea-db-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add dist/sea-db.json
+          if git diff --cached --quiet; then
+            echo "dist already up to date"
+          else
+            git commit -m "build: regenerate dist/sea-db.json [skip ci]"
+            git push
+          fi
