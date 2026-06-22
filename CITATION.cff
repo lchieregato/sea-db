@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use SEA.db, please cite it as below."
+title: "SEA.db — Social Engineering Attack Database"
+abstract: "An open taxonomy of the human layer of social engineering: the psychological mechanisms (principles, emotions, techniques, and contexts) that make an attack work, independent of delivery vector."
+type: dataset
+authors:
+  - family-names: Chieregato
+    given-names: Luiz
+    orcid: "https://orcid.org/0009-0008-0585-5661"
+    affiliation: OES
+license: CC-BY-4.0
+url: "https://oes.seg.br/seadb"
+repository-code: "https://github.com/lchieregato/sea-db"
+version: 1.0.0
+date-released: "2026-06-22"
+keywords:
+  - social engineering
+  - taxonomy
+  - phishing
+  - security awareness
