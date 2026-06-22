@@ -1,0 +1,15 @@
+{
+  "title": "SEA.db — Social Engineering Attack Database",
+  "description": "An open taxonomy of the human layer of social engineering: the psychological mechanisms (principles, emotions, techniques, and contexts) that make an attack work, independent of delivery vector. Every entity has a stable canonical ID and, where applicable, MITRE ATT&CK mappings and cross-references.",
+  "upload_type": "dataset",
+  "access_right": "open",
+  "license": "CC-BY-4.0",
+  "creators": [
+    {
+      "name": "Chieregato, Luiz",
+      "affiliation": "OES",
+      "orcid": "0009-0008-0585-5661"
+    }
+  ],
+  "keywords": ["social engineering", "taxonomy", "phishing", "security awareness"]
+}
