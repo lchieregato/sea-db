@@ -1,6 +1,6 @@
 # SEA.db — Social Engineering Attack Database
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-2ec4b6.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20791723.svg)](https://doi.org/10.5281/zenodo.20791723) [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-2ec4b6.svg)](LICENSE)
 
 An open taxonomy of the human layer of social engineering: the psychological
 mechanisms that make an attack work, independent of delivery vector.
