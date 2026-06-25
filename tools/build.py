@@ -17,7 +17,7 @@ def validator_for(kind):
 
 def main():
     out = {"name": "SEA.db", "title": "Social Engineering Attack Database",
-           "version": "1.0.0", "license": "CC-BY-4.0",
+           "version": "1.1.0", "license": "CC-BY-4.0",
            "homepage": "https://oes.seg.br/seadb",
            "generated": datetime.date.today().isoformat(), "counts": {}}
     errors = 0

@@ -17,11 +17,12 @@ and cited precisely.
 |------|------|-------|---------------------|
 | Principles | SEA-P | 15 | Which lever the attacker pulls |
 | Emotions | SEA-E | 7 | Which state the target feels |
-| Techniques | SEA-T | 42 | Which instrument delivers it |
+| Techniques | SEA-T | 48 | Which instrument delivers it |
 | Contexts | SEA-C | 4 | Where the pretext is anchored |
 
-Techniques are grouped into four vectors: Email (`SEA-TE`), Vishing
-(`SEA-TV`), Physical (`SEA-TP`), and Social (`SEA-TS`).
+Techniques are grouped into five vectors: Email (`SEA-TE`), Vishing
+(`SEA-TV`), Physical (`SEA-TP`), Social (`SEA-TS`), and Collaboration
+(`SEA-TC`).
 
 ## Citing
 
