@@ -1,14 +1,14 @@
 {
   "name": "SEA.db",
   "title": "Social Engineering Attack Database",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "CC-BY-4.0",
   "homepage": "https://oes.seg.br/seadb",
-  "generated": "2026-06-22",
+  "generated": "2026-06-25",
   "counts": {
     "principles": 15,
     "emotions": 7,
-    "techniques": 42,
+    "techniques": 48,
     "contexts": 4
   },
   "principles": [
@@ -1507,6 +1507,144 @@
         "SEA-P-007",
         "SEA-P-005",
         "SEA-E-001"
+      ]
+    },
+    {
+      "id": "SEA-TC-001",
+      "name": "External Tenant Impersonation",
+      "vector": "COLLABORATION",
+      "summary": "External federated tenant spoofs an executive's display name to message staff from inside the collaboration platform.",
+      "description": "Abuse of cross-tenant federation in a collaboration platform — most notably Microsoft Teams — to message an internal employee from an attacker-controlled external tenant, with the display name set to a trusted executive or internal team. The platform's implicit trust and the chat medium, rather than email, lower the target's guard.",
+      "example": "A finance employee receives a Teams chat from \"CEO — [Name]\" originating from an external tenant, requesting an urgent payment — the platform's trust and the absence of an email gateway to inspect make the approach credible.",
+      "detection": "Treat the platform's \"External\" tag as a hard stop for any sensitive or financial request. Verify identity through a known internal channel before acting — display names are attacker-controlled.",
+      "forensic": "Message origin is an external or federated tenant unrelated to the organization. Display name matches an internal executive but the underlying domain or UPN does not. Tenant or account registered shortly before contact.",
+      "mitre_attack": [
+        "T1566.003",
+        "T1199"
+      ],
+      "combinations": [
+        "SEA-TC-002",
+        "SEA-TC-004"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-013",
+        "SEA-E-004"
+      ]
+    },
+    {
+      "id": "SEA-TC-002",
+      "name": "Internal Account Lateral Messaging",
+      "vector": "COLLABORATION",
+      "summary": "Compromised internal account messages colleagues from inside the tenant, with no external warning and full institutional trust.",
+      "description": "Use of a compromised internal account to message colleagues from within the organization's own tenant — carrying no external warning and inheriting full institutional trust — to request transfers or credentials, or to spread malicious links laterally.",
+      "example": "An attacker who has taken over an employee's account messages the finance team asking to \"update the supplier's banking details\", with no external tag to signal that anything is wrong.",
+      "detection": "Apply the same verification to internal requests for payments or credentials as to external ones. An unusual request from a known colleague's account warrants an out-of-band check.",
+      "forensic": "Account activity inconsistent with the legitimate user's baseline — login geolocation, hours, device. Lateral messages to finance or IT shortly after an anomalous sign-in.",
+      "mitre_attack": [
+        "T1078",
+        "T1534"
+      ],
+      "combinations": [
+        "SEA-TC-001",
+        "SEA-TE-014"
+      ],
+      "cross_references": [
+        "SEA-P-012",
+        "SEA-P-013",
+        "SEA-E-005"
+      ]
+    },
+    {
+      "id": "SEA-TC-003",
+      "name": "OAuth Consent / Malicious App Grant",
+      "vector": "COLLABORATION",
+      "summary": "User is persuaded to grant a malicious app OAuth permissions that persist beyond password resets and MFA.",
+      "description": "Manipulation of a user into approving a malicious third-party application or add-in inside the collaboration platform, granting persistent OAuth permissions — mailbox, files, chat — that survive password changes and MFA.",
+      "example": "A message urges the target to \"authorize the new collaboration tool to continue\", leading to a legitimate-looking consent screen — approval grants the attacker standing access to files and messages.",
+      "detection": "Do not approve application permission requests you did not initiate. A consent screen requesting broad mailbox or file access for an unfamiliar app is a strong indicator — defer to your administrator.",
+      "forensic": "OAuth grant to a recently registered or unverified application. Token used from infrastructure unrelated to the user. Access persists after a credential reset.",
+      "mitre_attack": [
+        "T1528",
+        "T1566.003"
+      ],
+      "combinations": [
+        "SEA-TC-001",
+        "SEA-TC-004"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-006",
+        "SEA-E-002"
+      ]
+    },
+    {
+      "id": "SEA-TC-004",
+      "name": "Webhook / Connector / Bot Spoofing",
+      "vector": "COLLABORATION",
+      "summary": "A webhook, connector, or bot impersonates a trusted internal system to issue an authoritative-looking request.",
+      "description": "Posting messages into a channel or direct chat through an incoming webhook, connector, or bot configured to impersonate a trusted system or automation — \"Security Alerts\", \"IT Helpdesk\", \"HR Bot\" — lending machine-authority to the attacker's request.",
+      "example": "An incoming webhook named \"IT Security Bot\" posts a channel message instructing staff to \"re-authenticate at the link below due to a policy update\", appearing as a sanctioned automated notice.",
+      "detection": "Automated and system messages are not inherently trustworthy — verify any action they request through the official IT or security channel. Govern who can create webhooks and connectors.",
+      "forensic": "Message delivered via an incoming webhook with no legitimate owner. Connector or bot added outside change control. Link destination unrelated to internal systems.",
+      "mitre_attack": [
+        "T1566.003",
+        "T1078"
+      ],
+      "combinations": [
+        "SEA-TC-003",
+        "SEA-TE-005"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-011",
+        "SEA-E-004"
+      ]
+    },
+    {
+      "id": "SEA-TC-005",
+      "name": "Guest Access / Shared-Channel Infiltration",
+      "vector": "COLLABORATION",
+      "summary": "An invited guest or shared-channel member operates from inside the workspace, appearing legitimate to build trust.",
+      "description": "Operating inside the organization's collaboration workspace as an invited guest or through a shared channel — appearing as a legitimate member — to build familiarity and then solicit data, distribute links, or stage further attacks from a trusted internal vantage point.",
+      "example": "An attacker invited as a guest to a project channel participates normally for weeks, then shares a \"project document\" link to a credential-collection page — trusted because they are already inside the workspace.",
+      "detection": "Periodically review guest and shared-channel membership and remove stale external participants. Treat links and files from guests with the same scrutiny as any external source.",
+      "forensic": "Guest account active well beyond project need. Shared channel connected to an unrelated external tenant. Malicious link introduced after a period of benign participation.",
+      "mitre_attack": [
+        "T1199",
+        "T1566.003"
+      ],
+      "combinations": [
+        "SEA-TC-002",
+        "SEA-TS-006"
+      ],
+      "cross_references": [
+        "SEA-P-012",
+        "SEA-P-013",
+        "SEA-E-005"
+      ]
+    },
+    {
+      "id": "SEA-TC-006",
+      "name": "Trusted-Platform Link/File Laundering",
+      "vector": "COLLABORATION",
+      "summary": "Malicious link or file delivered in-platform to bypass the email gateway and inherit the platform's trust.",
+      "description": "Delivery of a malicious link or file through the collaboration platform's chat or file-sharing rather than email — simultaneously bypassing the email security gateway and inheriting the platform's implicit trust, with the destination masked behind the platform's own preview or file-share interface.",
+      "example": "Instead of emailing a phishing link, where the gateway would scan it, the attacker shares it as a chat message or an uploaded file — the rendered preview and platform context make it appear safe.",
+      "detection": "Inspect the true destination of links and the origin of files shared in chat — the email gateway did not see them. A clean in-platform preview does not mean the destination is safe.",
+      "forensic": "Malicious URL or file first seen via the collaboration platform with no corresponding email gateway log. File hash flagged on analysis. Link destination domain unrelated to the platform.",
+      "mitre_attack": [
+        "T1566.003",
+        "T1204"
+      ],
+      "combinations": [
+        "SEA-TC-001",
+        "SEA-TE-005"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-012",
+        "SEA-E-004"
       ]
     }
   ],
