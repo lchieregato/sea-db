@@ -11,8 +11,8 @@ authors:
 license: CC-BY-4.0
 url: "https://oes.seg.br/seadb"
 repository-code: "https://github.com/lchieregato/sea-db"
-version: 1.1.0
-date-released: "2026-06-25"
+version: 1.2.0
+date-released: "2026-06-27"
 keywords:
   - social engineering
   - taxonomy

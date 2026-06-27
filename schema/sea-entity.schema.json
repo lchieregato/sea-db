@@ -5,7 +5,7 @@
   "$defs": {
     "id": {
       "type": "string",
-      "pattern": "^SEA-(P|E|C|TE|TV|TP|TS|TC)-[0-9]{3}$"
+      "pattern": "^SEA-(P|E|C|TE|TV|TP|TS|TC|TA)-[0-9]{3}$"
     },
     "refList": {
       "type": "array",
@@ -138,7 +138,8 @@
             "VISHING",
             "PHYSICAL",
             "SOCIAL",
-            "COLLABORATION"
+            "COLLABORATION",
+            "AI"
           ]
         },
         "summary": {

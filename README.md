@@ -17,12 +17,12 @@ and cited precisely.
 |------|------|-------|---------------------|
 | Principles | SEA-P | 15 | Which lever the attacker pulls |
 | Emotions | SEA-E | 7 | Which state the target feels |
-| Techniques | SEA-T | 48 | Which instrument delivers it |
+| Techniques | SEA-T | 56 | Which instrument delivers it |
 | Contexts | SEA-C | 4 | Where the pretext is anchored |
 
-Techniques are grouped into five vectors: Email (`SEA-TE`), Vishing
-(`SEA-TV`), Physical (`SEA-TP`), Social (`SEA-TS`), and Collaboration
-(`SEA-TC`).
+Techniques are grouped into six vectors: Email (`SEA-TE`), Vishing
+(`SEA-TV`), Physical (`SEA-TP`), Social (`SEA-TS`), Collaboration
+(`SEA-TC`), and AI-Mediated (`SEA-TA`).
 
 ## Citing
 
@@ -58,7 +58,9 @@ print(by_id["SEA-P-007"]["name"])  # Authority
 SEA.db is complementary to MITRE ATT&CK. ATT&CK catalogs adversary behaviors
 and techniques. SEA.db describes the psychological layer beneath initial
 access. Where a mapping exists, an entity lists the related ATT&CK technique
-IDs in its `mitre_attack` field.
+IDs in its `mitre_attack` field. For AI-mediated techniques (`SEA-TA`), that
+same field also carries MITRE ATLAS IDs (`AML.*`) — the adversarial-AI matrix
+that covers behaviour ATT&CK does not.
 
 ## Contributing
 
