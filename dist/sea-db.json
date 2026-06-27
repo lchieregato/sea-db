@@ -1,14 +1,14 @@
 {
   "name": "SEA.db",
   "title": "Social Engineering Attack Database",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "CC-BY-4.0",
   "homepage": "https://oes.seg.br/seadb",
-  "generated": "2026-06-25",
+  "generated": "2026-06-27",
   "counts": {
     "principles": 15,
     "emotions": 7,
-    "techniques": 48,
+    "techniques": 56,
     "contexts": 4
   },
   "principles": [
@@ -1645,6 +1645,203 @@
         "SEA-P-007",
         "SEA-P-012",
         "SEA-E-004"
+      ]
+    },
+    {
+      "id": "SEA-TA-001",
+      "name": "Summary / Output Injection",
+      "vector": "AI",
+      "summary": "Poisoned source content makes an AI summary render the attacker's phishing CTA as part of its trusted output.",
+      "description": "An attacker embeds hidden or adversarial content in a web page or document so that an AI system summarizing it reproduces the attacker's malicious call-to-action inside its own output. The phishing link inherits the trust the user places in the AI assistant — not in any sender or domain.",
+      "example": "A user asks an assistant to summarize a product page; the generated summary ends with \"A new device was added to your account — click here to review,\" a phishing link the user attributes to the assistant itself.",
+      "detection": "Treat links, buttons, and QR codes inside AI answers as untrusted, regardless of how authoritative the summary looks. Verify any account or security claim through the service's own app or a manually typed URL.",
+      "forensic": "Hidden or out-of-context instructional text present in the source page. Malicious URL appears only in model output and is absent from the user prompt. Click originates from the AI interface context.",
+      "mitre_attack": [
+        "AML.T0051.001",
+        "AML.T0048",
+        "T1566"
+      ],
+      "combinations": [
+        "SEA-TA-005",
+        "SEA-TE-005",
+        "SEA-TE-011"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-013",
+        "SEA-E-001",
+        "SEA-E-003"
+      ]
+    },
+    {
+      "id": "SEA-TA-002",
+      "name": "RAG / Copilot Poisoning",
+      "vector": "AI",
+      "summary": "Poisoned content in an indexed corpus makes an enterprise copilot relay the attacker's payload as trusted internal knowledge.",
+      "description": "An attacker plants malicious content in a data source an enterprise copilot indexes via retrieval-augmented generation, so the assistant surfaces attacker instructions or links to internal users as if it were sanctioned organizational knowledge. Exploits implicit trust in an internally deployed AI tool.",
+      "example": "A shared wiki page is seeded with adversarial text; an employee asks the corporate copilot how to complete a task, and the answer cites the poisoned source, instructing authentication at an attacker-controlled portal.",
+      "detection": "Internal AI answers are not authoritative by default. Verify any instruction involving credentials, payments, or configuration changes against an owner or a known-good procedure. Restrict and review copilot indexing scope.",
+      "forensic": "Retrieved chunk traces to a recently modified or externally writable source. An anomalous edit precedes the incident. The citation points to an unexpected origin.",
+      "mitre_attack": [
+        "AML.T0070",
+        "AML.T0071",
+        "T1566"
+      ],
+      "combinations": [
+        "SEA-TA-007",
+        "SEA-TC-006"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-011",
+        "SEA-P-013",
+        "SEA-E-004"
+      ]
+    },
+    {
+      "id": "SEA-TA-003",
+      "name": "AI Answer / Source Poisoning",
+      "vector": "AI",
+      "summary": "Manipulated sources steer an AI answer engine into recommending the attacker's site, app, or support number.",
+      "description": "An attacker manipulates the sources an AI answer engine retrieves and cites so the response recommends an attacker-controlled site, app, or support contact. The successor to SEO poisoning — targeting AI search and overview surfaces rather than the ranked results page.",
+      "example": "A user asks an AI search tool for a brand's support number; poisoned, freshly published sources cause it to confidently return an attacker-run number running a vishing script.",
+      "detection": "Confirm support numbers, downloads, and official sites on the organization's verified property — not from an AI summary. Be especially cautious when an AI answer supplies a contact channel rather than a fact.",
+      "forensic": "The recommended resource resolves to recently registered or low-reputation infrastructure. Cited sources show coordinated publication timing. The outcome bridges into a second vector.",
+      "mitre_attack": [
+        "AML.T0066",
+        "AML.T0048",
+        "T1566"
+      ],
+      "combinations": [
+        "SEA-TV-002",
+        "SEA-TV-003",
+        "SEA-TE-015"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-013",
+        "SEA-E-001"
+      ]
+    },
+    {
+      "id": "SEA-TA-004",
+      "name": "Slopsquatting",
+      "vector": "AI",
+      "summary": "Attacker registers package names that LLMs hallucinate, so AI-suggested install commands deliver malicious dependencies.",
+      "description": "An attacker registers package or dependency names that LLMs predictably hallucinate when generating code, so a developer following AI-suggested install steps pulls a malicious package. Supply-chain social engineering targeting the developer's trust in AI-generated code.",
+      "example": "A developer asks for code using a library; the model invents a plausible package name the attacker pre-registered, and the suggested install command fetches malware.",
+      "detection": "Verify every AI-suggested package against its official registry and repository before installing — confirm it exists, is maintained, and matches the real project. Do not copy install commands from model output unchecked.",
+      "forensic": "The package name matches a hallucination pattern with no legitimate history. Recently created, low downloads, namespace-adjacent to a real library. Install traced to an AI-generated snippet.",
+      "mitre_attack": [
+        "AML.T0062",
+        "AML.T0060",
+        "T1195.001"
+      ],
+      "combinations": [
+        "SEA-TA-002",
+        "SEA-TS-008"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-013",
+        "SEA-E-003"
+      ]
+    },
+    {
+      "id": "SEA-TA-005",
+      "name": "Citation Laundering",
+      "vector": "AI",
+      "summary": "A malicious link presented inside an AI's citation interface inherits the appearance of a vetted reference.",
+      "description": "An attacker gets a malicious link surfaced inside an AI's citation or \"sources\" interface, where the UI lends it the appearance of a vetted, authoritative reference. The trust transfer comes from the citation chrome itself, not from the content of the link.",
+      "example": "An AI response footnotes its claims with numbered sources; one links to an attacker page styled as documentation, which the user opens trusting it was vetted.",
+      "detection": "A citation is not a vetting. Inspect the actual domain behind any AI-provided source before trusting it or authenticating to it.",
+      "forensic": "The cited domain is mismatched to its claimed publisher. The citation was injected via retrieved content. The link target hosts a credential or download lure.",
+      "mitre_attack": [
+        "AML.T0051.001",
+        "AML.T0048",
+        "T1566"
+      ],
+      "combinations": [
+        "SEA-TA-001",
+        "SEA-TA-003"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-004",
+        "SEA-P-013",
+        "SEA-E-003"
+      ]
+    },
+    {
+      "id": "SEA-TA-006",
+      "name": "Agent Hijacking via Indirect Prompt Injection",
+      "vector": "AI",
+      "summary": "Attacker content read by a user's autonomous agent redirects the agent to act against its own owner.",
+      "description": "An autonomous agent acting for the user — browsing, email, file, or computer-use — ingests attacker-controlled content that instructs it to act against its owner: exfiltrating data, making payments, or changing settings. Subverts delegated trust in the agent rather than deceiving the user directly.",
+      "example": "A browsing agent told to \"summarize this page\" encounters embedded instructions to send the user's saved data to an external address, and complies as if the instruction came from its principal.",
+      "detection": "Require human confirmation for any consequential agent action — sending, paying, sharing, deleting, or changing settings. Constrain agents to least privilege and isolate untrusted content from action-capable contexts.",
+      "forensic": "The agent log shows an operation the user never requested, traceable to instruction text in ingested content. Timing aligns with reading attacker material. The recipient is absent from the original task.",
+      "mitre_attack": [
+        "AML.T0051.001",
+        "AML.T0080",
+        "AML.T0048"
+      ],
+      "combinations": [
+        "SEA-TA-007",
+        "SEA-TA-008"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-013",
+        "SEA-P-015"
+      ]
+    },
+    {
+      "id": "SEA-TA-007",
+      "name": "Confused-Deputy / Tool-Call Abuse",
+      "vector": "AI",
+      "summary": "Attacker content drives an agent to misuse a privileged tool it legitimately holds, weaponizing its own permissions.",
+      "description": "Injected content manipulates an agent into invoking a privileged tool it legitimately holds — mail rules, file sharing, API actions — turning its own permissions against its owner. A form of agent hijack focused on the tool surface rather than free-text output.",
+      "example": "Content processed by an email agent instructs it to create a forwarding rule sending all finance messages externally; the agent has rule-creation permission and executes it.",
+      "detection": "Gate privileged tool calls — rule creation, sharing changes, transfers — behind explicit user approval. Scope integrations narrowly and log every tool invocation with its triggering context.",
+      "forensic": "A privileged tool call with no corresponding user instruction. A new persistent rule or integration created mid-session. Parameters reference an attacker-supplied destination.",
+      "mitre_attack": [
+        "AML.T0053",
+        "AML.T0051.001",
+        "AML.T0086"
+      ],
+      "combinations": [
+        "SEA-TA-006",
+        "SEA-TA-002"
+      ],
+      "cross_references": [
+        "SEA-P-007",
+        "SEA-P-013",
+        "SEA-P-015"
+      ]
+    },
+    {
+      "id": "SEA-TA-008",
+      "name": "Memory Poisoning",
+      "vector": "AI",
+      "summary": "Persistent malicious entries in an AI's memory bias all future responses toward the attacker's objective.",
+      "description": "An attacker injects persistent instructions into an AI's long-term memory or personalization store so that future sessions are biased toward attacker goals — consistently recommending a malicious resource or suppressing a warning. The compromise outlives the originating interaction.",
+      "example": "A single crafted interaction writes a \"preference\" into the assistant's memory; weeks later, unrelated queries are steered toward the attacker's site because the poisoned memory persists.",
+      "detection": "Periodically review and prune AI memory and personalization entries. Be skeptical of persistent recommendations you did not configure, and disable memory for sensitive workflows.",
+      "forensic": "The memory store contains an instruction-like entry not authored by the user. The onset of biased behavior correlates with a specific prior session. The recommendation persists across unrelated contexts.",
+      "mitre_attack": [
+        "AML.T0080",
+        "AML.T0081",
+        "AML.T0051.001"
+      ],
+      "combinations": [
+        "SEA-TA-006",
+        "SEA-TA-002"
+      ],
+      "cross_references": [
+        "SEA-P-013",
+        "SEA-P-007",
+        "SEA-P-014"
       ]
     }
   ],
